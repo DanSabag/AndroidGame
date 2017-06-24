@@ -19,6 +19,7 @@ public class ShapeDrawer {
         // TODO make array better
         this.drawer[EShapes.RECTANGLE.ordinal()] = (renderer, gameShape) -> {
             renderer.rect(50, 50, 32, 32);
+            
         };
     }
 }
