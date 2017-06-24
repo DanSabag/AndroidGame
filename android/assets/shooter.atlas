@@ -1,0 +1,48 @@
+
+shooter.png
+size: 1024,128
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+shooter1
+  rotate: false
+  xy: 2, 2
+  size: 102, 113
+  orig: 102, 113
+  offset: 0, 0
+  index: -1
+shooter6
+  rotate: false
+  xy: 2, 2
+  size: 102, 113
+  orig: 102, 113
+  offset: 0, 0
+  index: -1
+shooter2
+  rotate: false
+  xy: 106, 2
+  size: 102, 113
+  orig: 102, 113
+  offset: 0, 0
+  index: -1
+shooter3
+  rotate: false
+  xy: 210, 2
+  size: 102, 113
+  orig: 102, 113
+  offset: 0, 0
+  index: -1
+shooter4
+  rotate: false
+  xy: 314, 2
+  size: 102, 113
+  orig: 102, 113
+  offset: 0, 0
+  index: -1
+shooter5
+  rotate: false
+  xy: 418, 2
+  size: 102, 113
+  orig: 102, 113
+  offset: 0, 0
+  index: -1
