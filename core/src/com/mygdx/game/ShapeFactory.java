@@ -1,13 +1,10 @@
-package com.mygdx.game.Providers;
+package com.mygdx.game;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.EShapes;
 import com.mygdx.game.GameShape;
 
-/**
- * Created by dan on 23/06/17.
- */
 public class ShapeFactory {
     public static GameShape getRectangle(World world, Vector2 position, float width, float height, boolean fixedRotation) {
         Body shapeBody;
