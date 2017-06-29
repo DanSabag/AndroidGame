@@ -7,14 +7,23 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
+import java.util.ArrayList;
+
 public class ShapeEvader extends ApplicationAdapter {
-    //TODO organize project
-    //TODO add comments
+    /* -----------------------------
+                Data members
+    --------------------------------*/
+    //TODO 1 Change max size of circle
+    //TODO 2 track shape removal
+    //TODO 3 organize project
+    //TODO 4 add comments
     private static final boolean DEBUG  = true;
     private int nHeight;
     private int nWidth;
 
-//TODO Debug memory
+    private ArrayList<GameShape> loadedShapes;
+
+//TODO? Debug memory
 //	long javaHeap = Gdx.app.getJavaHeap();
 //	long nativeHeap = Gdx.app.getNativeHeap();
 
@@ -22,11 +31,16 @@ public class ShapeEvader extends ApplicationAdapter {
     private OrthographicCamera camera;
     private World gameWorld;
 
+    /* -----------------------------
+                Functions
+    --------------------------------*/
 	@Override
 	public void create () {
 		// Get screen size
 		this.nHeight = Gdx.graphics.getHeight();
 		this.nWidth = Gdx.graphics.getWidth();
+
+		loadedShapes = new ArrayList<GameShape>();
 
 		this.shapeRenderer = new ShapeRenderer();
 		this.camera = new OrthographicCamera(nWidth / 2, nHeight/ 2);
@@ -37,17 +51,12 @@ public class ShapeEvader extends ApplicationAdapter {
 	@Override
 	public void render () {
 	    float deltaTime = Gdx.graphics.getDeltaTime();
-		update(deltaTime);
+        this.updateWorld();
         gameWorld.step(deltaTime, 6, 2);
 
         // Draw the shapes
         camera.update();
         shapeRenderer.setProjectionMatrix(camera.combined);
-        GameShape gs = ShapeFactory.getRandomShape(gameWorld);
-        //TODO what is this shape type
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        ShapeDrawer.getInstance().drawer[gs.getShapeType().ordinal()].draw(shapeRenderer, gs);
-        shapeRenderer.end();
 
 		// MANIPULATE SHAPE
 //		shapeRenderer.begin(ShapeType.Line);
@@ -59,7 +68,7 @@ public class ShapeEvader extends ApplicationAdapter {
 //		shapeRenderer.end();
 	}
 
-	@Override
+    @Override
 	public void dispose () {
         gameWorld.dispose();
         shapeRenderer.dispose();
@@ -75,7 +84,40 @@ public class ShapeEvader extends ApplicationAdapter {
 
 	}
 
-	private void update (float deltaTime) {
+	private void updateWorld () {
+        removeOutOfFrameShapes();
 
+        // Load the amount of missing shapes to the world
+        int numOfRequiredShapes = GameConstants.MAX_LOADED_SHAPES - loadedShapes.size();
+        if (numOfRequiredShapes > 0) {
+            loadRandomShapes(numOfRequiredShapes);
+        }
+
+        //TODO? what is this shape type
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+
+        // Draw all loaded shapes on the screen
+        for (GameShape currShape : this.loadedShapes) {
+            ShapeDrawer.getInstance().
+                    drawer[currShape.getShapeData().getShapeType().getIndex()]
+                    .draw(this.shapeRenderer, currShape);
+        }
+
+        shapeRenderer.end();
+    }
+
+    private void loadRandomShapes(int numOfRequiredShapes) {
+        for (;numOfRequiredShapes > 0; numOfRequiredShapes--) {
+            this.loadedShapes.add(ShapeFactory.getInstance()
+                    .getRandomShape(this.gameWorld, nWidth, nHeight));
+        }
+    }
+
+    private void removeOutOfFrameShapes() {
+        for (GameShape currShape : this.loadedShapes) {
+            if (currShape.getShapeData().getY() < 0) {
+                this.gameWorld.destroyBody(currShape.getShape());
+            }
+        }
     }
 }

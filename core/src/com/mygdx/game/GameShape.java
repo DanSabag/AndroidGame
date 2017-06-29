@@ -1,32 +1,37 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.physics.box2d.Body;
+import com.mygdx.game.Shapes.BaseShapeData;
 
-/**
- * Created by dan on 23/06/17.
- */
 public class GameShape {
+    /* -----------------------------
+                Data members
+    --------------------------------*/
     private Body shape;
-    private EShapes shapeType;
+    private BaseShapeData shapeData;
 
-    public GameShape(Body shape, EShapes shapeType) {
+    /* -----------------------------
+                Ctors
+    --------------------------------*/
+    public GameShape(Body shape, BaseShapeData baseShapeData) {
         this.shape = shape;
-        this.shapeType = shapeType;
+        this.shapeData = baseShapeData;
     }
 
-    public Body getShape() {
-        return shape;
-    }
-
-    public EShapes getShapeType() {
-        return shapeType;
-    }
+    /* -----------------------------
+            Getters & Setters
+    --------------------------------*/
+    public Body getShape() { return shape; }
 
     public void setShape(Body shape) {
         this.shape = shape;
     }
 
-    public void setShapeType(EShapes shapeType) {
-        this.shapeType = shapeType;
+    public BaseShapeData getShapeData() {
+        return shapeData;
+    }
+
+    public void setShapeData(BaseShapeData baseShapeData) {
+        this.shapeData = baseShapeData;
     }
 }

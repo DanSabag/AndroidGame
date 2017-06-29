@@ -5,4 +5,5 @@ package com.mygdx.game;
  */
 public class GameConstants {
     public static final int NUM_OF_SHAPES = 2;
+    public static final int MAX_LOADED_SHAPES = 5;
 }
