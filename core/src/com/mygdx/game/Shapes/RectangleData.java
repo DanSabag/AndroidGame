@@ -1,7 +1,9 @@
 package com.mygdx.game.Shapes;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.EShapes;
+import com.mygdx.game.GameConstants;
 import com.mygdx.game.GameShape;
 import com.mygdx.game.Utils;
 
@@ -9,10 +11,10 @@ public class RectangleData extends BaseShapeData implements Randomized {
     /* -----------------------------
                 Constants
     --------------------------------*/
-    public static final float MAX_HEIGHT = 70;
-    public static final float MAX_WIDTH = 70;
-    public static final float MIN_HEIGHT = 20;
-    public static final float MIN_WIDTH = 20;
+    public static final int MAX_HEIGHT = 70;
+    public static final int MAX_WIDTH = 70;
+    public static final int MIN_HEIGHT = 30;
+    public static final int MIN_WIDTH = 30;
 
     /* -----------------------------
                 Data members
@@ -26,7 +28,7 @@ public class RectangleData extends BaseShapeData implements Randomized {
     public RectangleData() {}
 
     public RectangleData(float x, float y, float height, float width) {
-        super(x, y, EShapes.RECTANGLE);
+        super(x, y, height, EShapes.RECTANGLE);
         this.height = height;
         this.width = width;
     }
@@ -34,10 +36,12 @@ public class RectangleData extends BaseShapeData implements Randomized {
     /* -----------------------------
                     Getters & Setters
             --------------------------------*/
+    @Override
     public float getHeight() {
         return height;
     }
 
+    @Override
     public void setHeight(float height) {
         this.height = height;
     }
@@ -54,15 +58,21 @@ public class RectangleData extends BaseShapeData implements Randomized {
                 Functions
     --------------------------------*/
     @Override
-    public GameShape getRandomGameShape(World world, float randomX, float randomY) {
-        float fHeightMeanAndVariance = (MAX_HEIGHT + MIN_HEIGHT) / 2f;
-        float fWidthMeanAndVariance = (MAX_WIDTH + MIN_WIDTH) / 2f;
-
+    public GameShape getRandomGameShapeData(World world, float randomX, float randomY) {
         RectangleData rect = new RectangleData(randomX,
                                 randomY,
-                                Utils.getGussian(fHeightMeanAndVariance, fHeightMeanAndVariance),
-                                Utils.getGussian(fWidthMeanAndVariance, fWidthMeanAndVariance));
+                                Utils.getRandomInteger(MIN_HEIGHT, MAX_HEIGHT),
+                                Utils.getRandomInteger(MIN_WIDTH, MAX_WIDTH));
+
+        if (GameConstants.DEBUG) {
+            Gdx.app.log("Created rectangle data", rect.toString());
+        }
 
         return new GameShape(null, rect);
+    }
+
+    @Override
+    public String toString() {
+        return (super.toString() + " dimesions(w:" + this.width + ", h:" + this.height + ")");
     }
 }

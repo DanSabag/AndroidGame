@@ -7,5 +7,5 @@ import com.mygdx.game.GameShape;
  * Created by dan on 23/06/17.
  */
 public interface IShapeDrawer {
-    public void draw(ShapeRenderer renderer, GameShape gameShape);
+    void draw(ShapeRenderer renderer, GameShape gameShape);
 }

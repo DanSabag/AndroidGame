@@ -19,9 +19,9 @@ public class Utils {
         return (1 + countDigits(nWidth / 10));
     }
 
-    public static float getGussian(double fMean, double fVariance) {
-        return (float)(fMean + fRandom.nextGaussian() * fVariance);
-    }
+//    public static float getGussian(double fMean, double fVariance) {
+//        return (float)(fMean + fRandom.nextGaussian() * fVariance);
+//    }
 
     public static int getRandomInteger(int nStart, int nEnd) throws IllegalArgumentException {
         if (nEnd < nStart) {

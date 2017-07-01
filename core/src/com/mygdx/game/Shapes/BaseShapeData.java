@@ -1,5 +1,6 @@
 package com.mygdx.game.Shapes;
 
+import com.badlogic.gdx.Gdx;
 import com.mygdx.game.EShapes;
 
 public abstract class BaseShapeData {
@@ -8,6 +9,7 @@ public abstract class BaseShapeData {
     --------------------------------*/
     private float x;
     private float y;
+    private float height;
     private EShapes shapeType;
 
     /* -----------------------------
@@ -15,9 +17,10 @@ public abstract class BaseShapeData {
     --------------------------------*/
     public BaseShapeData() {}
 
-    public BaseShapeData(float x, float y, EShapes shapeType) {
+    public BaseShapeData(float x, float y, float height, EShapes shapeType) {
         this.x = x;
         this.y = y;
+        this.height = height;
         this.shapeType = shapeType;
     }
 
@@ -38,7 +41,20 @@ public abstract class BaseShapeData {
         this.y = y;
     }
 
+    public float getHeight() { return height; }
+
+    public void setHeight(float height) { this.height = height; }
+
     public EShapes getShapeType() { return shapeType; }
 
     public void setShapeType(EShapes shapeType) { this.shapeType = shapeType; }
+
+    /* -----------------------------
+                Functions
+    --------------------------------*/
+
+    @Override
+    public String toString() {
+        return ("position(x:" + this.x+ ", y:" + this.y + ")");
+    }
 }

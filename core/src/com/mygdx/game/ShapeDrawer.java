@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.Shapes.CircleData;
 import com.mygdx.game.Shapes.RectangleData;
 
@@ -18,11 +19,13 @@ public class ShapeDrawer {
         this.drawer = new IShapeDrawer[GameConstants.NUM_OF_SHAPES];
         this.drawer[EShapes.RECTANGLE.getIndex()] = (renderer, gameShape) -> {
             RectangleData rectData = (RectangleData) gameShape.getShapeData();
-            renderer.rect(rectData.getX(), rectData.getY(), rectData.getWidth(), rectData.getHeight());
+            Body rectBody = gameShape.getShape();
+            renderer.rect(rectBody.getPosition().x, rectBody.getPosition().y, rectData.getWidth(), rectData.getHeight());
         };
         this.drawer[EShapes.CIRCLE.getIndex()] = (renderer, gameShape) -> {
             CircleData circleData = (CircleData) gameShape.getShapeData();
-            renderer.circle(circleData.getX(), circleData.getY(), circleData.getRadius());
+            Body circleBody = gameShape.getShape();
+            renderer.circle(circleBody.getPosition().x, circleBody.getPosition().y, circleData.getRadius());
         };
     }
 
